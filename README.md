@@ -1,24 +1,24 @@
-#GITHUB USER SEARCH
+# GITHUB USER SEARCH
 -----------------------
-   * This is the first Task of </Dj-Unicode> Team.
-   * This poject basically uses the github api to search for the requested user and return the data which is displayed here.
+   * This is the first Task that I did using an API.
+   * This project basically uses the github api to search for the requested user and return the data which is displayed here.
    * On clicking the repository link we can get the commit history of that particular repository.
 
-#Requirements
+# Requirements
 -----------------------
    * Run Command `pip install -r requirements.txt` .
 
-#Features
+# Features
 -----------------------
    * Registration page i.e. custom `user` model.
-   * Bcrypt and Argon2 password hashing algorithms.
-#Project Structure
+   * bcrypt and Argon2 password hashing algorithms.
+# Project Structure
 -----------------------
    * The app name is `momo` where all the qoring happens.
-   * static file contains the `master.css`
-   * templates folder has all the frontend Templates.
+   * Static file contains the `master.css`
+   * Ttemplates folder has all the frontend Templates.
    * API_Task has the main urls.py, settings.py and other files.
-#Screenshots
+# Screenshots
 -----------------------
 Home-Page:
 ![index page](/screenshots/index.PNG "index page")
