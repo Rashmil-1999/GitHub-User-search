@@ -1,0 +1,46 @@
+{% extends 'momo/search.html' %}
+
+{% block result %}
+
+    {% if user_not_exist %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>User Not Found.</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="container">
+      <div class="jumbotron">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img src="{{json_object2.avatar_url}}" alt="Profile_pic" class="avatar">
+            </div>
+            <div class="col">
+              <h3>Name : {{json_object2.name}}</h3>
+              <p>Username : {{json_object2.login}}</p>
+              <p>Public Repositories : {{json_object2.public_repos}}</p>
+              <p>BIO : {{json_object2.bio}}</p>
+              <p>Following : {{json_object2.following}}</p>
+              <p>Followers : {{json_object2.followers}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% for repo in json_object1 %}
+      <div class="container">
+        <div class="jumbotron">
+          <h5>Created on: {{repo.created_at}}</h5>
+          <h3> <a href="{% url 'repo_detail' username=repo.owner.login repo_name=repo.name %}"> {{repo.name}}</a> </h3>
+          <hr>
+          <h4>Main Language: {{repo.language}}</h4>
+          <p>Description: {{repo.description}}</p>
+          <p>Forks: {{repo.forks|linebreaksbr}}</p>
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+    {% endif %}
+{% endblock %}

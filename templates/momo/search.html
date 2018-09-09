@@ -1,0 +1,25 @@
+{% extends "momo/base.html" %}
+{% block body_block %}
+
+<div class="container">
+  <div class="jumbotron text-center">
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="container">
+          <div class="row">
+            <div class="col-8">
+              <input type="text" class="form-control" name="gh_username" placeholder="Enter Github Username...">
+            </div>
+            <div class="col">
+              <button class="btn btn-primary" type="submit">Search!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+    {% block result %}
+    {% endblock %}
+{% endblock %}
