@@ -45,7 +45,7 @@ ALLOWED_HOSTS = [
     '.pythonanywhere.com'
 ]
 
-WSGI_APPLICATION = 'API_Task.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 ##################################################
 # APPLICATION DEVELOPMENT
@@ -80,7 +80,7 @@ MIDDLEWARE = [
 
 ##################################################
 
-ROOT_URLCONF = 'API_Task.urls'
+ROOT_URLCONF = 'project.urls'
 
 ##################################################
 # FRONT END SETTINGS
