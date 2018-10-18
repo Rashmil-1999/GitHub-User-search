@@ -1,3 +1,6 @@
+# WARNING. Do not push this in production.
+!.env
+
 __pychache__/
 static/
 db.sqlite3

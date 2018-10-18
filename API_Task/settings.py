@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
 
 ##################################################
 # FILE SYSTEM PATHS
@@ -23,15 +24,28 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 ##################################################
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q3yt+uoba1lo8m8js$3i4n98b)5jius8i^1kaw^oat#!7*k681'
+env = environ.Env(
+    SECRET_KEY=(str, "th15$i5$aN$uNsAfE+S3cr3t$k3y"),
+    DEBUG=(bool, False),
+)
+environ.Env.read_env(BASE_DIR + '/.env')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1','.pythonanywhere.com']
+DEBUG = env('DEBUG')
+
+SECRET_KEY = env('SECRET_KEY')
+
+##################################################
+# DEPLOY SETTINGS
+##################################################
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '.pythonanywhere.com'
+]
+
+WSGI_APPLICATION = 'API_Task.wsgi.application'
 
 ##################################################
 # APPLICATION DEVELOPMENT
@@ -88,8 +102,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'API_Task.wsgi.application'
-
 ##################################################
 # DATABASE SETTINGS
 ##################################################
@@ -142,8 +154,8 @@ LOGOUT_REDIRECT_URL = ''
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 
-MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+MEDIA_ROOT = MEDIA_DIR
 
 ##################################################
 # INTERNATIONALIZATION SETTINGS
