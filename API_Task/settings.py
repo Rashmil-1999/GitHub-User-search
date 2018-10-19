@@ -11,36 +11,62 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
 
+##################################################
+# FILE SYSTEM PATHS
+##################################################
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+##################################################
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+##################################################
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q3yt+uoba1lo8m8js$3i4n98b)5jius8i^1kaw^oat#!7*k681'
+env = environ.Env(
+    SECRET_KEY=(str, "th15$i5$aN$uNsAfE+S3cr3t$k3y"),
+    DEBUG=(bool, False),
+)
+environ.Env.read_env(BASE_DIR + '/.env')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1','.pythonanywhere.com']
+SECRET_KEY = env('SECRET_KEY')
 
+##################################################
+# DEPLOY SETTINGS
+##################################################
 
-# Application definition
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '.pythonanywhere.com'
+]
 
-INSTALLED_APPS = [
+WSGI_APPLICATION = 'API_Task.wsgi.application'
+
+##################################################
+# APPLICATION DEVELOPMENT
+##################################################
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+USER_APPS = [
     'momo',
 ]
+
+INSTALLED_APPS = DJANGO_APPS + USER_APPS
+
+##################################################
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,7 +78,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+##################################################
+
 ROOT_URLCONF = 'API_Task.urls'
+
+##################################################
+# FRONT END SETTINGS
+##################################################
 
 TEMPLATES = [
     {
@@ -70,10 +102,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'API_Task.wsgi.application'
-
-
-# Database
+##################################################
+# DATABASE SETTINGS
+##################################################
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
@@ -83,10 +114,12 @@ DATABASES = {
     }
 }
 
+##################################################
+# AUTHENTICATION SETTINGS
+##################################################
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.Argon2PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
@@ -110,30 +143,28 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = '/momo/user_login'
+LOGOUT_REDIRECT_URL = ''
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'Asia/Kolkata'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
+##################################################
+# ASSETS SETTINGS
+##################################################
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [STATIC_DIR,]
 
-#media
-MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+MEDIA_ROOT = MEDIA_DIR
 
-LOGIN_URL = '/momo/user_login'
-LOGOUT_REDIRECT_URL = ''
+##################################################
+# INTERNATIONALIZATION SETTINGS
+##################################################
+# https://docs.djangoproject.com/en/2.1/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'Asia/Kolkata'
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True

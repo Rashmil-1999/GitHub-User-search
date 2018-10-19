@@ -1,3 +1,7 @@
-/momo/__pychache__
-/static
+# WARNING. Do not push this in production.
+!.env
+
+__pychache__/
+static/
 db.sqlite3
+../migrations/
