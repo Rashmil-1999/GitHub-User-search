@@ -61,7 +61,7 @@ DJANGO_APPS = [
 ]
 
 USER_APPS = [
-    'momo',
+    'apps.main',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + USER_APPS

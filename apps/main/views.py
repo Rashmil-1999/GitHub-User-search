@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from momo.forms import UserForm,UserProfileInfoForm
+from .forms import UserForm,UserProfileInfoForm
 
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth import authenticate,login,logout
