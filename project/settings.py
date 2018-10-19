@@ -45,7 +45,7 @@ ALLOWED_HOSTS = [
     '.pythonanywhere.com'
 ]
 
-WSGI_APPLICATION = 'API_Task.wsgi.application'
+WSGI_APPLICATION = 'project.wsgi.application'
 
 ##################################################
 # APPLICATION DEVELOPMENT
@@ -61,7 +61,7 @@ DJANGO_APPS = [
 ]
 
 USER_APPS = [
-    'momo',
+    'apps.main',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + USER_APPS
@@ -80,7 +80,7 @@ MIDDLEWARE = [
 
 ##################################################
 
-ROOT_URLCONF = 'API_Task.urls'
+ROOT_URLCONF = 'project.urls'
 
 ##################################################
 # FRONT END SETTINGS

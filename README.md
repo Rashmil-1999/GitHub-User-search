@@ -19,7 +19,7 @@ Run Command `pip install -r requirements.txt` .
 # Project Structure
 -----
 
-* The app name is `momo` where all the qoring happens.
+* The app name is `main` where all the qoring happens.
 * Static file contains the `master.css`
 * Ttemplates folder has all the frontend Templates.
 * API_Task has the main urls.py, settings.py and other files.
