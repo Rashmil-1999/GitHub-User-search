@@ -5,3 +5,4 @@ __pychache__/
 static/
 db.sqlite3
 migrations/
+media/
