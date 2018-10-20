@@ -6,14 +6,13 @@ from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-import json,requests
-# Create your views here.
+
+from util.github_client import get_user_info, get_user_repos, get_repo_commits, GithubError
 
 def index(request):
     return render(request,'momo/index.html')
 
 def register(request):
-
     registered = False
 
     if request.method == "POST":
@@ -48,29 +47,22 @@ def gh_user_search(request):
     if request.method == "POST":
         gh_username = request.POST.get('gh_username')
 
-        #the code for search goes here!
-        url1 = 'https://api.github.com/users/{user}/repos'
-        url = 'https://api.github.com/users/{user}'
-        response1 = requests.get(url1.format(user=gh_username))
-        json_object1 = json.loads(response1.text)
-        response2 = requests.get(url.format(user=gh_username))
-        json_object2 = json.loads(response2.text)
-        if len(json_object1) <= 2:
-            user_not_exist = True
-            return render(request,'momo/result.html',{'user_not_exist':user_not_exist})
-        else:
+        try:
+            json_object2 = get_user_info(gh_username)
+            json_object1 = get_user_repos(gh_username)
             return render(request,'momo/result.html',{'json_object1':json_object1,'json_object2':json_object2,'username':gh_username})
+        except GithubError as e:
+            if e.status == 404:
+                return render(request, 'momo/result.html', {'user_not_exist': True})
+            else:
+                return HttpResponse('Github error', status=e.status)        
     else:
         return render(request,'momo/search.html',{})
 
 
-def gh_UserCommits(request,username,repo_name):
-    url = 'https://api.github.com/repos/{user}/{repo_name}/commits'
-    response = requests.get(url.format(user=username,repo_name=repo_name))
-    json_object = json.loads(response.text)
-
+def gh_UserCommits(request, username, repo_name):
+    json_object = get_repo_commits(user=username, repo=repo_name)
     return render(request,'momo/commits_history.html',{'history':json_object,'repo_name':repo_name})
-
 
 def user_login(request):
     if request.method == "POST":
